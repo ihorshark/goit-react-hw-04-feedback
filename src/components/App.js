@@ -1,6 +1,7 @@
 import { useReducer } from 'react';
 import Section from './Section';
 import FeedbackOptions from './FeedbackOptions';
+import Notification from './Notification';
 import Statistics from './Statistics';
 
 const initialState = {
@@ -38,16 +39,23 @@ export default function App() {
   return (
     <div>
       <Section title="Please leave feedback">
-        <FeedbackOptions onLeaveFeedback={dispatch} />
+        <FeedbackOptions
+          onLeaveFeedback={dispatch}
+          buttons={Object.keys(initialState)}
+        />
       </Section>
       <Section title="Statistics">
-        <Statistics
-          good={state.good}
-          neutral={state.neutral}
-          bad={state.bad}
-          total={countTotalFeedback()}
-          positivePercentage={countPositiveFeedbackPercentage()}
-        ></Statistics>
+        {countTotalFeedback() ? (
+          <Statistics
+            good={state.good}
+            neutral={state.neutral}
+            bad={state.bad}
+            total={countTotalFeedback()}
+            positivePercentage={countPositiveFeedbackPercentage()}
+          ></Statistics>
+        ) : (
+          <Notification />
+        )}
       </Section>
     </div>
   );
