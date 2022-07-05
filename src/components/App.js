@@ -54,7 +54,7 @@ export default function App() {
             positivePercentage={countPositiveFeedbackPercentage()}
           ></Statistics>
         ) : (
-          <Notification />
+          <Notification title={'No feedback given'} />
         )}
       </Section>
     </div>
